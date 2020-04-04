@@ -6,7 +6,7 @@ const mainContainerElement = document.querySelector(`.main`);
 const headerElement = document.querySelector(`.header`);
 /**
  * Returns user profile html
- * @returns {string}
+ * @return {string}
  */
 const getUserProfileHtml = () => (
   `<section class="header__profile profile">
@@ -16,7 +16,7 @@ const getUserProfileHtml = () => (
 );
 /**
  * Returns menu html
- * @returns {string}
+ * @return {string}
  */
 const getMenuHtml = () => (
   `<nav class="main-navigation">
@@ -31,7 +31,7 @@ const getMenuHtml = () => (
 );
 /**
  * Returns sort html
- * @returns {string}
+ * @return {string}
  */
 const getSortHtml = () => (
   `<ul class="sort">
@@ -42,7 +42,7 @@ const getSortHtml = () => (
 );
 /**
  * Returns container html
- * @returns {string}
+ * @return {string}
  */
 const getContentContainerHtml = () => (
   `<section class="films">
@@ -62,7 +62,7 @@ const getContentContainerHtml = () => (
 );
 /**
  * Returns film card html
- * @returns {string}
+ * @return {string}
  */
 const getFilmCardHtml = () => (
   `<article class="film-card">
@@ -85,7 +85,7 @@ const getFilmCardHtml = () => (
 );
 /**
  * Returns extra film card html
- * @returns {string}
+ * @return {string}
  */
 const getExtraFilmCardHtml = () => (
   `<article class="film-card">
@@ -108,14 +108,14 @@ const getExtraFilmCardHtml = () => (
 );
 /**
  * Returns show more button html
- * @returns {string}
+ * @return {string}
  */
 const getBtnShowMoreHtml = () => (
   `<button class="films-list__show-more">Show more</button>`
 );
 /**
  * Returns details popup html
- * @returns {string}
+ * @return {string}
  */
 const getDetailsPopupHtml = () => (
   `<section class="film-details">
