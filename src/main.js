@@ -1,11 +1,11 @@
-import {getUserProfileHtml} from "./components/user-profile";
-import {getMenuHtml} from "./components/menu";
-import {getSortHtml} from "./components/sort";
-import {getContentContainerHtml} from "./components/content-container";
-import {getFilmCardHtml} from "./components/film-card";
-import {getBtnShowMoreHtml} from "./components/show-more-btn";
-import {getExtraFilmCardHtml} from "./components/film-card-extra";
-import {getDetailsPopupHtml} from "./components/details-popup";
+import {getUserProfileHtml} from './components/user-profile';
+import {getMenuHtml} from './components/menu';
+import {getSortHtml} from './components/sort';
+import {getContentContainerHtml} from './components/content-container';
+import {getFilmCardHtml} from './components/film-card';
+import {getButtonShowMoreHtml} from './components/show-more-btn';
+import {getExtraFilmCardHtml} from './components/film-card-extra';
+import {getDetailsPopupHtml} from './components/details-popup';
 
 const FILM_CARDS_COUNT = 5;
 // Film cards in extra blocks count - «Top rated» and «Most commented»
@@ -38,7 +38,7 @@ const init = () => {
   for (let i = 0; i < FILM_CARDS_COUNT; i++) {
     render(filmsListInnerContainer, getFilmCardHtml());
   }
-  render(filmsListContainer, getBtnShowMoreHtml());
+  render(filmsListContainer, getButtonShowMoreHtml());
 
   for (let i = 0; i < EXTRA_FILM_CARDS_COUNT; i++) {
     render(topRatedFilmsContainer, getExtraFilmCardHtml());
