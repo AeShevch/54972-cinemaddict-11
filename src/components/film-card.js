@@ -1,3 +1,4 @@
+
 /**
  * Returns film card html
  * @return {string}

@@ -1,3 +1,17 @@
+import {menuData} from '../mock/menu';
+
+/**
+ * Returns menu items html
+ * @param {array} menuData The array of objects with menu data
+ * @return {string}
+ */
+const getMenuItemsHtml = (menuData) => (
+  menuData.map((item) => {
+    const itemCountHtml = item.count ? `<span class="main-navigation__item-count">${item.count}</span>` : ``;
+    return `<a href="#${item.anchor}" class="main-navigation__item">${item.text}${itemCountHtml}</a>`;
+  }).join(`\n`)
+);
+
 /**
  * Returns menu html
  * @return {string}
@@ -5,10 +19,7 @@
 const getMenuHtml = () => (
   `<nav class="main-navigation">
     <div class="main-navigation__items">
-      <a href="#all" class="main-navigation__item main-navigation__item--active">All movies</a>
-      <a href="#watchlist" class="main-navigation__item">Watchlist <span class="main-navigation__item-count">13</span></a>
-      <a href="#history" class="main-navigation__item">History <span class="main-navigation__item-count">4</span></a>
-      <a href="#favorites" class="main-navigation__item">Favorites <span class="main-navigation__item-count">8</span></a>
+      ${getMenuItemsHtml(menuData)}
     </div>
     <a href="#stats" class="main-navigation__additional">Stats</a>
   </nav>`
