@@ -1,5 +1,8 @@
 const MAX_DESC_SENTENCES_COUNT = 5;
 const MAX_COMMENTS_COUNT = 5;
+const MAX_WRITERS_COUNT = 4;
+const MAX_ACTORS_COUNT = 4;
+const MAX_GENRES_COUNT = 3;
 const FILM_DATA_MOCK = {
   names: [
     `Back to the future`,
@@ -92,7 +95,19 @@ const FILM_DATA_MOCK = {
     `Spain`,
     `UK`,
   ],
-  description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras aliquet varius magna, non porta ligula feugiat eget. Fusce tristique felis at fermentum pharetra. Aliquam id orci ut lectus varius viverra. Nullam nunc ex, convallis sed finibus eget, sollicitudin eget ante. Phasellus eros mauris, condimentum sed nibh vitae, sodales efficitur ipsum. Sed blandit, eros vel aliquam faucibus, purus ex euismod diam, eu luctus nunc ante ut dui. Sed sed nisi sed augue convallis suscipit in sed felis. Aliquam erat volutpat. Nunc fermentum tortor ac porta dapibus. In rutrum ac purus sit amet tempus.`,
+  description: [
+    `Lorem ipsum dolor sit amet, consectetur adipiscing elit.`,
+    `Cras aliquet varius magna, non porta ligula feugiat eget.`,
+    `Fusce tristique felis at fermentum pharetra.`,
+    `Aliquam id orci ut lectus varius viverra.`,
+    `Nullam nunc ex, convallis sed finibus eget, sollicitudin eget ante.`,
+    `Phasellus eros mauris, condimentum sed nibh vitae, sodales efficitur ipsum.`,
+    `Sed blandit, eros vel aliquam faucibus, purus ex euismod diam, eu luctus nunc ante ut dui.`,
+    `Sed sed nisi sed augue convallis suscipit in sed felis.`,
+    `Aliquam erat volutpat.`,
+    `Nunc fermentum tortor ac porta dapibus.`,
+    `In rutrum ac purus sit amet tempus.`,
+  ],
   comment: {
     emoji: [
       `smile.png`,
@@ -127,45 +142,58 @@ const FILM_DATA_MOCK = {
   }
 };
 
+const emojiIconToAlt = new Map([
+  [`smile.png`, `emoji-smile`],
+  [`sleeping.png`, `emoji-sleeping`],
+  [`puke.png`, `emoji-puke`],
+  [`angry.png`, `emoji-angry`]
+]);
+
 const getRandomElem = (arr) => arr[Math.floor(Math.random() * arr.length)];
 const getRandomNumber = (min, max, digits = 0) => (Math.random() * (max - min) + min).toFixed(digits);
 
-const getRandomDate = () => {
-  const randomDate = new Date(parseInt(getRandomNumber(0, Date.now(), 0), 10));
-  return {
-    date: randomDate.getDate(),
-    month: randomDate.toLocaleString(`eng`, {month: `long`}),
-    year: randomDate.getFullYear(),
-  };
-};
+const getRandomDate = () => new Date(parseInt(getRandomNumber(0, Date.now(), 0), 10));
 
-const getRandomSentences = (text, maxSentencesCount) => {
-  const sentences = text.split(`. `);
+const getStringFromRandomCountOfElements = (array, maxSentencesCount, delimiter = `, `) => {
   let newText = ``;
-  for (let i = 0; i < getRandomNumber(1, maxSentencesCount); i++) {
-    newText += sentences.splice(getRandomNumber(0, sentences.length - 1), 1) + `. `;
+  let elementsCount = getRandomNumber(1, maxSentencesCount);
+  for (let i = 0; i < elementsCount; i++) {
+    newText += array.splice(getRandomNumber(0, array.length - 1), 1) + (i !== elementsCount - 1 ? delimiter : ``);
   }
   return newText.trim();
 };
 
 class Comment {
   constructor(comment) {
-    this.emoji = getRandomElem(comment.emoji);
+    this.emoji = {
+      icon: getRandomElem(comment.emoji),
+      alt: emojiIconToAlt.get(this.emoji)
+    };
+    this.date = getRandomDate();
     this.author = getRandomElem(comment.authors);
     this.message = getRandomElem(comment.messages);
   }
 }
 
+
 class Film {
-  constructor({names, posters, genres, description, comment}) {
+  constructor({names, writers, actors, directors, posters, genres, countries, description, comment}) {
     this.name = getRandomElem(names);
     this.nameOriginal = getRandomElem(names);
     this.poster = getRandomElem(posters);
+    this.details = {
+      'Director': getRandomElem(directors),
+      'Writers': getStringFromRandomCountOfElements(writers, MAX_WRITERS_COUNT),
+      'Actors': getStringFromRandomCountOfElements(actors, MAX_ACTORS_COUNT),
+      'Release Date': getRandomDate(),
+      'Runtime': getRandomNumber(1, 4) + `h ` + getRandomNumber(0, 60) + `m`,
+      'Country': getRandomElem(countries),
+      'Genres': getStringFromRandomCountOfElements(genres, MAX_GENRES_COUNT).split(`, `),
+    };
+
     this.rating = getRandomNumber(0, 10, 1);
-    this.releaseDate = getRandomDate();
-    this.duration = getRandomNumber(1, 4) + `h ` + getRandomNumber(0, 60) + `m`;
-    this.genre = getRandomElem(genres);
-    this.description = getRandomSentences(description, MAX_DESC_SENTENCES_COUNT);
+
+    this.description = getStringFromRandomCountOfElements(description, MAX_DESC_SENTENCES_COUNT, ` `);
     this.comments = [];
     for (let i = 0; i < getRandomNumber(0, MAX_COMMENTS_COUNT); i++) {
       this.comments.push(new Comment(comment));

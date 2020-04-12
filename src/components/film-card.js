@@ -3,6 +3,7 @@ const truncate = (str, maxSize) => (str.length > maxSize) ? str.slice(0, maxSize
 
 /**
  * Returns film card html
+ * @param {object} film Object with film data
  * @return {string}
  */
 const getFilmCardHtml = (film) => (
@@ -10,9 +11,9 @@ const getFilmCardHtml = (film) => (
      <h3 class="film-card__title">${film.name}</h3>
      <p class="film-card__rating">${film.rating}</p>
      <p class="film-card__info">
-       <span class="film-card__year">${film.releaseDate.year}</span>
+       <span class="film-card__year">${film.details[`Release Date`].year}</span>
        <span class="film-card__duration">${film.duration}</span>
-       <span class="film-card__genre">${film.genre}</span>
+       <span class="film-card__genre">${film.details.Genres.join(`, `)}</span>
      </p>
      <img src="./images/posters/${film.poster}" alt="${film.name}" class="film-card__poster">
      <p class="film-card__description">${truncate(film.description, DESCRIPTION_MAX_SIZE)}</p>

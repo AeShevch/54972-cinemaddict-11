@@ -59,7 +59,7 @@ const init = () => {
     render(mostCommentedFilmsContainer, getExtraFilmCardHtml());
   }
 
-  render(document.body, getDetailsPopupHtml());
+  render(document.body, getDetailsPopupHtml(films[0]));
 };
 
 init();
