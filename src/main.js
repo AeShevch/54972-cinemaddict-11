@@ -4,9 +4,9 @@ import {getSortHtml} from './components/sort';
 import {getContentContainerHtml} from './components/content-container';
 import {getFilmCardHtml} from './components/film-card';
 import {getButtonShowMoreHtml} from './components/show-more-btn';
-import {getExtraFilmCardHtml} from './components/film-card-extra';
 import {getDetailsPopupHtml} from './components/details-popup';
 import {getFilm} from './mock/film';
+import {USER_DATA_MOCK} from './mock/user';
 
 const FILM_CARDS_COUNT = 5;
 const FILMS_COUNT = 20;
@@ -20,8 +20,6 @@ for (let i = 0; i < FILMS_COUNT; i++) {
   films.push(getFilm());
 }
 
-console.log(films);
-
 /**
  * Renders components markup
  * @param {object} container Container for inserting a components markup
@@ -33,7 +31,7 @@ const render = (container, template, place = `beforeend`) => {
 };
 
 const init = () => {
-  render(headerElement, getUserProfileHtml());
+  render(headerElement, getUserProfileHtml(USER_DATA_MOCK));
   render(mainContainerElement, getMenuHtml());
   render(mainContainerElement, getSortHtml());
   render(mainContainerElement, getContentContainerHtml());
@@ -44,20 +42,12 @@ const init = () => {
   const topRatedFilmsContainer = filmsContainer.querySelector(`.films-list__container_top-rated`);
   const mostCommentedFilmsContainer = filmsContainer.querySelector(`.films-list__container_most-commented`);
 
-  let filmsCounter = 0;
-  for (const film of films) {
-    render(filmsListInnerContainer, getFilmCardHtml(film));
-    if (++filmsCounter === FILM_CARDS_COUNT) {
-      break;
-    }
-  }
+  films.slice(0, FILM_CARDS_COUNT).forEach((film) => render(filmsListInnerContainer, getFilmCardHtml(film)));
 
   render(filmsListContainer, getButtonShowMoreHtml());
 
-  for (let i = 0; i < EXTRA_FILM_CARDS_COUNT; i++) {
-    render(topRatedFilmsContainer, getExtraFilmCardHtml());
-    render(mostCommentedFilmsContainer, getExtraFilmCardHtml());
-  }
+  films.slice().sort((a, b) => b.rating - a.rating).slice(0, EXTRA_FILM_CARDS_COUNT).forEach((film) => render(topRatedFilmsContainer, getFilmCardHtml(film)));
+  films.slice().sort((a, b) => b.comments.length - a.comments.length).slice(0, EXTRA_FILM_CARDS_COUNT).forEach((film) => render(mostCommentedFilmsContainer, getFilmCardHtml(film)));
 
   render(document.body, getDetailsPopupHtml(films[0]));
 };

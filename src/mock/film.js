@@ -115,6 +115,12 @@ const FILM_DATA_MOCK = {
       `puke.png`,
       `sleeping.png`,
     ],
+    alts: [
+      `emoji-smile`,
+      `emoji-sleeping`,
+      `emoji-puke`,
+      `emoji-angry`,
+    ],
     authors: [
       `Harry Potter`,
       `Tom Riddle`,
@@ -138,16 +144,10 @@ const FILM_DATA_MOCK = {
       `Almost two hours? Seriously?`,
       `Very very old. Meh`,
       `the book was better`,
-    ]
-  }
+    ],
+  },
 };
 
-const emojiIconToAlt = new Map([
-  [`smile.png`, `emoji-smile`],
-  [`sleeping.png`, `emoji-sleeping`],
-  [`puke.png`, `emoji-puke`],
-  [`angry.png`, `emoji-angry`]
-]);
 
 const getRandomElem = (arr) => arr[Math.floor(Math.random() * arr.length)];
 const getRandomNumber = (min, max, digits = 0) => (Math.random() * (max - min) + min).toFixed(digits);
@@ -167,7 +167,7 @@ class Comment {
   constructor(comment) {
     this.emoji = {
       icon: getRandomElem(comment.emoji),
-      alt: emojiIconToAlt.get(this.emoji)
+      alt: getRandomElem(comment.alts),
     };
     this.date = getRandomDate();
     this.author = getRandomElem(comment.authors);
