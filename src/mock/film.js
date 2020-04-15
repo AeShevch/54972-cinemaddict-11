@@ -1,8 +1,12 @@
+/*
+* Constants
+* */
 const MAX_DESC_SENTENCES_COUNT = 5;
 const MAX_COMMENTS_COUNT = 5;
 const MAX_WRITERS_COUNT = 4;
 const MAX_ACTORS_COUNT = 4;
 const MAX_GENRES_COUNT = 3;
+
 const FILM_DATA_MOCK = {
   names: [
     `Back to the future`,
@@ -148,21 +152,26 @@ const FILM_DATA_MOCK = {
   },
 };
 
-
+/*
+* Functions
+* */
 const getRandomElem = (arr) => arr[Math.floor(Math.random() * arr.length)];
 const getRandomNumber = (min, max, digits = 0) => (Math.random() * (max - min) + min).toFixed(digits);
-
 const getRandomDate = () => new Date(parseInt(getRandomNumber(0, Date.now(), 0), 10));
 
-const getStringFromRandomCountOfElements = (array, maxSentencesCount, delimiter = `, `) => {
+const getRandomStringFromArray = (array, maxSentencesCount, delimiter = `, `) => {
   let newText = ``;
-  let elementsCount = getRandomNumber(1, maxSentencesCount);
+  const elementsCount = getRandomNumber(1, maxSentencesCount);
+  const arr = array.slice();
   for (let i = 0; i < elementsCount; i++) {
-    newText += array.splice(getRandomNumber(0, array.length - 1), 1) + (i !== elementsCount - 1 ? delimiter : ``);
+    newText += arr.splice(getRandomNumber(0, arr.length - 1), 1)[0] + (i !== elementsCount - 1 ? delimiter : ``);
   }
-  return newText.trim();
+  return newText;
 };
 
+/*
+* Classes
+* */
 class Comment {
   constructor(comment) {
     this.emoji = {
@@ -175,33 +184,31 @@ class Comment {
   }
 }
 
-
 class Film {
-  constructor({names, writers, actors, directors, posters, genres, countries, description, comment}) {
-    this.name = getRandomElem(names);
-    this.nameOriginal = getRandomElem(names);
-    this.poster = getRandomElem(posters);
+  constructor(mock) {
+    this.name = getRandomElem(mock.names);
+    this.nameOriginal = getRandomElem(mock.names);
+    this.poster = {
+      file: getRandomElem(mock.posters),
+      alt: getRandomElem(mock.names),
+    };
     this.details = {
-      'Director': getRandomElem(directors),
-      'Writers': getStringFromRandomCountOfElements(writers, MAX_WRITERS_COUNT),
-      'Actors': getStringFromRandomCountOfElements(actors, MAX_ACTORS_COUNT),
+      'Director': getRandomElem(mock.directors),
+      'Writers': getRandomStringFromArray(mock.writers, MAX_WRITERS_COUNT),
+      'Actors': getRandomStringFromArray(mock.actors, MAX_ACTORS_COUNT),
       'Release Date': getRandomDate(),
       'Runtime': getRandomNumber(1, 4) + `h ` + getRandomNumber(0, 60) + `m`,
-      'Country': getRandomElem(countries),
-      'Genres': getStringFromRandomCountOfElements(genres, MAX_GENRES_COUNT).split(`, `),
+      'Country': getRandomElem(mock.countries),
+      'Genres': getRandomStringFromArray(mock.genres, MAX_GENRES_COUNT).split(`, `),
     };
-
     this.rating = getRandomNumber(0, 10, 1);
-
-    this.description = getStringFromRandomCountOfElements(description, MAX_DESC_SENTENCES_COUNT, ` `);
+    this.description = getRandomStringFromArray(mock.description, MAX_DESC_SENTENCES_COUNT, ` `);
     this.comments = [];
     for (let i = 0; i < getRandomNumber(0, MAX_COMMENTS_COUNT); i++) {
-      this.comments.push(new Comment(comment));
+      this.comments.push(new Comment(mock.comment));
     }
     this.ageRating = getRandomNumber(0, 18) + `+`;
   }
 }
 
-const getFilm = () => new Film(FILM_DATA_MOCK);
-
-export {getFilm};
+export const getFilm = () => new Film(FILM_DATA_MOCK);

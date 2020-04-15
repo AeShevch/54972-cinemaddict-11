@@ -1,4 +1,8 @@
-const menuData = [
+/**
+ * Menu data mock
+ * @type {({anchor: string, text: string}|{anchor: string, count: string, text: string}|{anchor: string, count: string, text: string}|{anchor: string, count: string, text: string})[]}
+ */
+export const menuData = [
   {
     anchor: `all`,
     text: `All movies`
@@ -19,5 +23,3 @@ const menuData = [
     count: `8`
   }
 ];
-
-export {menuData}

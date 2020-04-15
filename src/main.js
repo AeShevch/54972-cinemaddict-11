@@ -42,11 +42,28 @@ const init = () => {
   const topRatedFilmsContainer = filmsContainer.querySelector(`.films-list__container_top-rated`);
   const mostCommentedFilmsContainer = filmsContainer.querySelector(`.films-list__container_most-commented`);
 
+  // Renders main film cards
   films.slice(0, FILM_CARDS_COUNT).forEach((film) => render(filmsListInnerContainer, getFilmCardHtml(film)));
 
   render(filmsListContainer, getButtonShowMoreHtml());
 
+  const makeShowNewFilmsFunc = () => {
+    let filmsArr = films.slice().splice(FILM_CARDS_COUNT, FILMS_COUNT - FILM_CARDS_COUNT);
+    return () => {
+      filmsArr.splice(0, FILM_CARDS_COUNT).forEach((film) => render(filmsListInnerContainer, getFilmCardHtml(film)));
+      if (!filmsArr.length) {
+        document.querySelector(`.films-list__show-more`).remove();
+      }
+    };
+  };
+
+  const onShowMoreClick = makeShowNewFilmsFunc();
+
+  filmsListContainer.querySelector(`.films-list__show-more`).addEventListener(`click`, onShowMoreClick);
+
+  // Filters films by rating, renders top rated films
   films.slice().sort((a, b) => b.rating - a.rating).slice(0, EXTRA_FILM_CARDS_COUNT).forEach((film) => render(topRatedFilmsContainer, getFilmCardHtml(film)));
+  // Filters films by comments count, renders top commented films
   films.slice().sort((a, b) => b.comments.length - a.comments.length).slice(0, EXTRA_FILM_CARDS_COUNT).forEach((film) => render(mostCommentedFilmsContainer, getFilmCardHtml(film)));
 
   render(document.body, getDetailsPopupHtml(films[0]));

@@ -41,8 +41,8 @@ const getCommentsListHtml = (comments) => (
  * @param {object} film Object with film data
  * @return {string}
  */
-const getDetailsPopupHtml = (film) => (
-  `<section class="film-details">
+export const getDetailsPopupHtml = (film) => (
+  `<section class="film-details" hidden>
     <form class="film-details__inner" action="" method="get">
       <div class="form-details__top-container">
         <div class="film-details__close">
@@ -50,7 +50,7 @@ const getDetailsPopupHtml = (film) => (
         </div>
         <div class="film-details__info-wrap">
           <div class="film-details__poster">
-            <img class="film-details__poster-img" src="./images/posters/${film.poster}" alt="">
+            <img class="film-details__poster-img" src="./images/posters/${film.poster.file}" alt="${film.poster.name}">
 
             <p class="film-details__age">${film.ageRating}</p>
           </div>
@@ -131,5 +131,3 @@ const getDetailsPopupHtml = (film) => (
     </form>
   </section>`
 );
-
-export {getDetailsPopupHtml};

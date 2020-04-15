@@ -2,7 +2,7 @@
  * Returns container html
  * @return {string}
  */
-const getContentContainerHtml = () => (
+export const getContentContainerHtml = () => (
   `<section class="films">
     <section class="films-list">
       <h2 class="films-list__title visually-hidden">All movies. Upcoming</h2>
@@ -18,5 +18,3 @@ const getContentContainerHtml = () => (
     </section>
   </section>`
 );
-
-export {getContentContainerHtml};

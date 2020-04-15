@@ -6,7 +6,7 @@ const truncate = (str, maxSize) => (str.length > maxSize) ? str.slice(0, maxSize
  * @param {object} film Object with film data
  * @return {string}
  */
-const getFilmCardHtml = (film) => (
+export const getFilmCardHtml = (film) => (
   `<article class="film-card">
      <h3 class="film-card__title">${film.name}</h3>
      <p class="film-card__rating">${film.rating}</p>
@@ -15,7 +15,7 @@ const getFilmCardHtml = (film) => (
        <span class="film-card__duration">${film.details[`Runtime`]}</span>
        <span class="film-card__genre">${film.details[`Genres`].join(`, `)}</span>
      </p>
-     <img src="./images/posters/${film.poster}" alt="${film.name}" class="film-card__poster">
+     <img src="./images/posters/${film.poster.file}" alt="${film.poster.alt}" class="film-card__poster">
      <p class="film-card__description">${truncate(film.description, DESCRIPTION_MAX_SIZE)}</p>
      <a class="film-card__comments">${film.comments.length} comments</a>
      <form class="film-card__controls">
@@ -25,5 +25,3 @@ const getFilmCardHtml = (film) => (
      </form>
    </article>`
 );
-
-export {getFilmCardHtml};
