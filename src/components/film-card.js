@@ -1,5 +1,5 @@
 const DESCRIPTION_MAX_SIZE = 140;
-const truncate = (str, maxSize) => (str.length > maxSize) ? str.slice(0, maxSize) + `...` : str;
+const truncate = (str, maxSize) => str.length > maxSize ? str.slice(0, maxSize - 1) + `...` : str;
 
 /**
  * Returns film card html

@@ -6,7 +6,7 @@ import {getFilmCardHtml} from './components/film-card';
 import {getButtonShowMoreHtml} from './components/show-more-btn';
 import {getDetailsPopupHtml} from './components/details-popup';
 import {getFilm} from './mock/film';
-import {USER_DATA_MOCK} from './mock/user';
+import {userData} from './mock/user';
 
 const FILM_CARDS_COUNT = 5;
 const FILMS_COUNT = 20;
@@ -31,7 +31,7 @@ const render = (container, template, place = `beforeend`) => {
 };
 
 const init = () => {
-  render(headerElement, getUserProfileHtml(USER_DATA_MOCK));
+  render(headerElement, getUserProfileHtml(userData));
   render(mainContainerElement, getMenuHtml());
   render(mainContainerElement, getSortHtml());
   render(mainContainerElement, getContentContainerHtml());

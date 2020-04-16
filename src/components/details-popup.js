@@ -1,21 +1,44 @@
+/**
+ * Adds zero to number that less then 10
+ * @param {number} number
+ * @return {string}
+ */
+const addZeroToNumber = (number) => number.toString().length < 2 ? `0` + number : number;
+
+/**
+ * Return film details cell
+ * @param {(string|array|object)} value Details string, array or date
+ * @return {string}
+ */
 const getFilmDetailsCellHtml = (value) => {
+  let str = value;
   if (Array.isArray(value)) {
-    value = value.map((valueItem) => `<span class="film-details__genre">${valueItem}</span>`).join(`\n`);
+    str = value.map((valueItem) => `<span class="film-details__genre">${valueItem}</span>`).join(`\n`);
   } else if (value instanceof Date) {
-    value = value.getDay() + ` ` + value.toLocaleString(`eng`, {month: `long`}) + ` ` + value.getFullYear();
+    str = value.getDay() + ` ` + value.toLocaleString(`en`, {month: `long`}) + ` ` + value.getFullYear();
   }
-  return `<td class="film-details__cell">` + value + `</td>`;
+  return str;
 };
 
+/**
+ * Returns film details html
+ * @param {array} details array of film details
+ * @return {string}
+ */
 const getFilmDetailsTableHtml = (details) => (
-  details.map((detailsItem) => (
+  details.map(([detailName, detailValue]) => (
     `<tr class="film-details__row">
-     <td class="film-details__term">${detailsItem[0]}</td>
-     ${getFilmDetailsCellHtml(detailsItem[1])}
-   </tr>`
+       <td class="film-details__term">${detailName}</td>
+       <td class="film-details__cell">${getFilmDetailsCellHtml(detailValue)}</td>
+     </tr>`
   )).join(`\n`)
 );
 
+/**
+ * Returns comments html
+ * @param {Array.<Object>} comments Array of objects with comments data
+ * @return {string}
+ */
 const getCommentsListHtml = (comments) => (
   comments.map((comment) => (
     `<li class="film-details__comment">
@@ -27,7 +50,8 @@ const getCommentsListHtml = (comments) => (
          <p class="film-details__comment-info">
            <span class="film-details__comment-author">${comment.author}</span>
            <span class="film-details__comment-day">
-            ${comment.date.getFullYear()}/${comment.date.getMonth()}/${comment.date.getDay()} ${(`0` + comment.date.getHours()).substr(-2)}:${(`0` + comment.date.getMinutes()).substr(-2)}
+            ${comment.date.getFullYear()}/${addZeroToNumber(comment.date.getMonth())}/${addZeroToNumber(comment.date.getDay())}
+            ${addZeroToNumber(comment.date.getHours())}:${addZeroToNumber(comment.date.getMinutes())}
            </span>
            <button class="film-details__comment-delete">Delete</button>
          </p>
@@ -42,7 +66,7 @@ const getCommentsListHtml = (comments) => (
  * @return {string}
  */
 export const getDetailsPopupHtml = (film) => (
-  `<section class="film-details" hidden>
+  `<section class="film-details">
     <form class="film-details__inner" action="" method="get">
       <div class="form-details__top-container">
         <div class="film-details__close">

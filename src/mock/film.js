@@ -157,7 +157,7 @@ const FILM_DATA_MOCK = {
 * */
 const getRandomElem = (arr) => arr[Math.floor(Math.random() * arr.length)];
 const getRandomNumber = (min, max, digits = 0) => (Math.random() * (max - min) + min).toFixed(digits);
-const getRandomDate = () => new Date(parseInt(getRandomNumber(0, Date.now(), 0), 10));
+const getRandomDate = () => new Date(parseInt(getRandomNumber(0, Date.now()), 10));
 
 const getRandomStringFromArray = (array, maxSentencesCount, delimiter = `, `) => {
   let newText = ``;
