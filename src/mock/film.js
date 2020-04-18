@@ -1,13 +1,14 @@
 /*
 * Constants
 * */
+const FILMS_COUNT = 20;
 const MAX_DESC_SENTENCES_COUNT = 5;
 const MAX_COMMENTS_COUNT = 5;
 const MAX_WRITERS_COUNT = 4;
 const MAX_ACTORS_COUNT = 4;
 const MAX_GENRES_COUNT = 3;
 
-const FILM_DATA_MOCK = {
+const getFilmDataMock = () => ({
   names: [
     `Back to the future`,
     `The Lord of the Rings`,
@@ -150,7 +151,7 @@ const FILM_DATA_MOCK = {
       `the book was better`,
     ],
   },
-};
+});
 
 /*
 * Functions
@@ -197,7 +198,7 @@ class Film {
       'Writers': getRandomStringFromArray(mock.writers, MAX_WRITERS_COUNT),
       'Actors': getRandomStringFromArray(mock.actors, MAX_ACTORS_COUNT),
       'Release Date': getRandomDate(),
-      'Runtime': getRandomNumber(1, 4) + `h ` + getRandomNumber(0, 60) + `m`,
+      'Runtime': `${getRandomNumber(1, 4)}h ${getRandomNumber(0, 60)}m`,
       'Country': getRandomElem(mock.countries),
       'Genres': getRandomStringFromArray(mock.genres, MAX_GENRES_COUNT).split(`, `),
     };
@@ -207,8 +208,13 @@ class Film {
     for (let i = 0; i < getRandomNumber(0, MAX_COMMENTS_COUNT); i++) {
       this.comments.push(new Comment(mock.comment));
     }
-    this.ageRating = getRandomNumber(0, 18) + `+`;
+    this.ageRating = `${getRandomNumber(0, 18)}+`;
   }
 }
 
-export const getFilm = () => new Film(FILM_DATA_MOCK);
+const films = [];
+for (let i = 0; i < FILMS_COUNT; i++) {
+  films.push(new Film(getFilmDataMock()));
+}
+
+export {films};

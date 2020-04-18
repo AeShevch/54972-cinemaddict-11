@@ -1,5 +1,16 @@
 const DESCRIPTION_MAX_SIZE = 140;
-const truncate = (str, maxSize) => str.length > maxSize ? str.slice(0, maxSize - 1) + `...` : str;
+const truncate = (str, maxSize) => str.length > maxSize ? `${str.slice(0, maxSize - 1)}...` : str;
+
+const getCommentCountString = (count) => {
+  switch (count) {
+    case 0:
+      return `no comments`;
+    case 1:
+      return `${count} comment`;
+    default:
+      return `${count} comments`;
+  }
+};
 
 /**
  * Returns film card html
@@ -17,7 +28,7 @@ export const getFilmCardHtml = (film) => (
      </p>
      <img src="./images/posters/${film.poster.file}" alt="${film.poster.alt}" class="film-card__poster">
      <p class="film-card__description">${truncate(film.description, DESCRIPTION_MAX_SIZE)}</p>
-     <a class="film-card__comments">${film.comments.length} comments</a>
+     <a class="film-card__comments">${getCommentCountString(film.comments.length)}</a>
      <form class="film-card__controls">
        <button class="film-card__controls-item button film-card__controls-item--add-to-watchlist">Add to watchlist</button>
        <button class="film-card__controls-item button film-card__controls-item--mark-as-watched">Mark as watched</button>

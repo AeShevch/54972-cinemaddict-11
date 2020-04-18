@@ -1,11 +1,11 @@
-import {menuData} from '../mock/menu';
+import {getMenuData} from '../mock/menu';
 
 /**
  * Returns menu items html
  * @return {string}
  */
 const getMenuItemsHtml = () => (
-  menuData.map((item) => {
+  getMenuData().map((item) => {
     const itemCountHtml = item.count ? `<span class="main-navigation__item-count">${item.count}</span>` : ``;
     return `<a href="#${item.anchor}" class="main-navigation__item">${item.text}${itemCountHtml}</a>`;
   }).join(`\n`)

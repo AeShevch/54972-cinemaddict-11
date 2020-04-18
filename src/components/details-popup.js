@@ -15,7 +15,10 @@ const getFilmDetailsCellHtml = (value) => {
   if (Array.isArray(value)) {
     str = value.map((valueItem) => `<span class="film-details__genre">${valueItem}</span>`).join(`\n`);
   } else if (value instanceof Date) {
-    str = value.getDay() + ` ` + value.toLocaleString(`en`, {month: `long`}) + ` ` + value.getFullYear();
+    const day = value.getDay();
+    const month = value.toLocaleString(`en`, {month: `long`});
+    const year = value.getFullYear();
+    str = `${day} ${month} ${year}`;
   }
   return str;
 };
