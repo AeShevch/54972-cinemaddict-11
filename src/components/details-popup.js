@@ -6,38 +6,6 @@
 const addZeroToNumber = (number) => number.toString().length < 2 ? `0` + number : number;
 
 /**
- * Return film details cell
- * @param {(string|array|object)} value Details string, array or date
- * @return {string}
- */
-const getFilmDetailsCellHtml = (value) => {
-  let str = value;
-  if (Array.isArray(value)) {
-    str = value.map((valueItem) => `<span class="film-details__genre">${valueItem}</span>`).join(`\n`);
-  } else if (value instanceof Date) {
-    const day = value.getDay();
-    const month = value.toLocaleString(`en`, {month: `long`});
-    const year = value.getFullYear();
-    str = `${day} ${month} ${year}`;
-  }
-  return str;
-};
-
-/**
- * Returns film details html
- * @param {array} details array of film details
- * @return {string}
- */
-const getFilmDetailsTableHtml = (details) => (
-  details.map(([detailName, detailValue]) => (
-    `<tr class="film-details__row">
-       <td class="film-details__term">${detailName}</td>
-       <td class="film-details__cell">${getFilmDetailsCellHtml(detailValue)}</td>
-     </tr>`
-  )).join(`\n`)
-);
-
-/**
  * Returns comments html
  * @param {Array.<Object>} comments Array of objects with comments data
  * @return {string}
@@ -61,6 +29,14 @@ const getCommentsListHtml = (comments) => (
        </div>
      </li>`
   )).join(`\n`)
+);
+
+const getGenresRow = (genres) => (
+  `<tr class="film-details__row">
+    <td class="film-details__term">${genres.length === 1 ? `Genre` : `Genres`}</td>
+    <td class="film-details__cell">
+        ${genres.map((genre) => `<span class="film-details__genre">${genre}</span>`).join(`\n`)}
+  </tr>`
 );
 
 /**
@@ -95,8 +71,32 @@ export const getDetailsPopupHtml = (film) => (
             </div>
 
             <table class="film-details__table">
-              ${getFilmDetailsTableHtml(Object.entries(film.details))}
-            </table>
+            <tr class="film-details__row">
+              <td class="film-details__term">Director</td>
+              <td class="film-details__cell">${film.director}</td>
+            </tr>
+            <tr class="film-details__row">
+              <td class="film-details__term">Writers</td>
+              <td class="film-details__cell">${film.writers}</td>
+            </tr>
+            <tr class="film-details__row">
+              <td class="film-details__term">Actors</td>
+              <td class="film-details__cell">${film.actors}</td>
+            </tr>
+            <tr class="film-details__row">
+              <td class="film-details__term">Release Date</td>
+              <td class="film-details__cell">${film.releaseDate.getDay()} ${film.releaseDate.toLocaleString(`en`, {month: `long`})} ${film.releaseDate.getFullYear()}</td>
+            </tr>
+            <tr class="film-details__row">
+              <td class="film-details__term">Runtime</td>
+              <td class="film-details__cell">${film.runtime}</td>
+            </tr>
+            <tr class="film-details__row">
+              <td class="film-details__term">Country</td>
+              <td class="film-details__cell">${film.country}</td>
+            </tr>
+            ${getGenresRow(film.genres)}
+          </table>
 
             <p class="film-details__film-description">
               ${film.description}

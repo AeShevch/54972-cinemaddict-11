@@ -193,19 +193,18 @@ class Film {
       file: getRandomElem(mock.posters),
       alt: getRandomElem(mock.names),
     };
-    this.details = {
-      'Director': getRandomElem(mock.directors),
-      'Writers': getRandomStringFromArray(mock.writers, MAX_WRITERS_COUNT),
-      'Actors': getRandomStringFromArray(mock.actors, MAX_ACTORS_COUNT),
-      'Release Date': getRandomDate(),
-      'Runtime': `${getRandomNumber(1, 4)}h ${getRandomNumber(0, 60)}m`,
-      'Country': getRandomElem(mock.countries),
-      'Genres': getRandomStringFromArray(mock.genres, MAX_GENRES_COUNT).split(`, `),
-    };
+    this.director = getRandomElem(mock.directors);
+    this.writers = getRandomStringFromArray(mock.writers, MAX_WRITERS_COUNT);
+    this.actors = getRandomStringFromArray(mock.actors, MAX_ACTORS_COUNT);
+    this.releaseDate = getRandomDate();
+    this.runtime = `${getRandomNumber(1, 4)}h ${getRandomNumber(0, 60)}m`;
+    this.country = getRandomElem(mock.countries);
+    this.genres = getRandomStringFromArray(mock.genres, MAX_GENRES_COUNT).split(`, `);
     this.rating = getRandomNumber(0, 10, 1);
     this.description = getRandomStringFromArray(mock.description, MAX_DESC_SENTENCES_COUNT, ` `);
     this.comments = [];
-    for (let i = 0; i < getRandomNumber(0, MAX_COMMENTS_COUNT); i++) {
+    let commentsCount = getRandomNumber(0, MAX_COMMENTS_COUNT);
+    for (let i = 0; i < commentsCount; i++) {
       this.comments.push(new Comment(mock.comment));
     }
     this.ageRating = `${getRandomNumber(0, 18)}+`;
