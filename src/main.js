@@ -29,15 +29,6 @@ const sortAndRender = (array, sortFunc, containerToRender) => {
   array.slice().sort(sortFunc).slice(0, EXTRA_FILM_CARDS_COUNT).forEach((film) => renderFilm(containerToRender, film));
 };
 
-// Найдите обложку фильма, заголовок и элемент с количеством комментариев в компоненте
-// карточки фильма и кнопку закрытия попапа (крестик) во втором компоненте
-// (не нужно ходить за ними в document, используйте метод getElement).
-// Навесьте на них пустые обработчики события click.
-//
-//   Реализуйте в добавленных обработчиках показ и скрытие
-//   попапа с подробной информацией о фильме с помощью appendChild и removeChild.
-
-
 const renderFilm = (container, film) => {
   const filmCardComponent = new FilmComponent(film);
 
@@ -78,27 +69,25 @@ const renderContainer = () => {
   const topRatedFilmsContainer = filmsContainer.querySelector(`.films-list__container_top-rated`);
   const mostCommentedFilmsContainer = filmsContainer.querySelector(`.films-list__container_most-commented`);
 
-  // const makeShowNewFilmsFunc = () => {
-  //   let filmsArr = films.slice();
-  //   return () => {
-  //     filmsArr.splice(0, FILM_CARDS_COUNT).forEach((film) => renderFilm(filmsListInnerContainer, film));
-  //     if (!filmsArr.length) {
-  //       document.querySelector(`.films-list__show-more`).remove();
-  //     }
-  //   };
-  // };
-  //
-  // const showNewFilms = makeShowNewFilmsFunc();
-  // showNewFilms();
+  const makeShowNewFilmsFunc = () => {
+    let filmsArr = films.slice();
+    return () => {
+      filmsArr.splice(0, FILM_CARDS_COUNT).forEach((film) => renderFilm(filmsListInnerContainer, film));
+      if (!filmsArr.length) {
+        document.querySelector(`.films-list__show-more`).remove();
+      }
+    };
+  };
+
+  const showNewFilms = makeShowNewFilmsFunc();
+  showNewFilms();
 
   sortAndRender(films, sortByCommentsCount, mostCommentedFilmsContainer);
   sortAndRender(films, sortByRating, topRatedFilmsContainer);
 
   render(filmsListContainer, new ButtonShowMoreComponent().getElement());
 
-  // filmsListContainer.querySelector(`.films-list__show-more`).addEventListener(`click`, showNewFilms);
-
-  // render(document.body, new PopUpComponent(films[0]).getElement());
+  filmsListContainer.querySelector(`.films-list__show-more`).addEventListener(`click`, showNewFilms);
 
 };
 
