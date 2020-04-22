@@ -1,8 +1,31 @@
+import {createElement} from "../mock/utils";
+
 /**
  * Returns show more button html
  * @return {string}
  */
-export const getButtonShowMoreHtml = () => (
+const getButtonShowMoreHtml = () => (
   `<button class="films-list__show-more">Show more</button>`
 );
 
+export default class ButtonShowMoreComponent {
+  constructor() {
+    this._element = null;
+  }
+
+  getTemplate() {
+    return getButtonShowMoreHtml();
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}

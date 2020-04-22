@@ -1,9 +1,4 @@
-/**
- * Adds zero to number that less then 10
- * @param {number} number
- * @return {string}
- */
-const addZeroToNumber = (number) => number.toString().length < 2 ? `0` + number : number;
+import {createElement, addZeroToNumber} from "../mock/utils";
 
 /**
  * Returns comments html
@@ -31,6 +26,7 @@ const getCommentsListHtml = (comments) => (
   )).join(`\n`)
 );
 
+
 const getGenresRow = (genres) => (
   `<tr class="film-details__row">
     <td class="film-details__term">${genres.length === 1 ? `Genre` : `Genres`}</td>
@@ -44,7 +40,7 @@ const getGenresRow = (genres) => (
  * @param {object} film Object with film data
  * @return {string}
  */
-export const getDetailsPopupHtml = (film) => (
+const getDetailsPopupHtml = (film) => (
   `<section class="film-details">
     <form class="film-details__inner" action="" method="get">
       <div class="form-details__top-container">
@@ -158,3 +154,26 @@ export const getDetailsPopupHtml = (film) => (
     </form>
   </section>`
 );
+
+export default class PopUpComponent {
+  constructor(film) {
+    this._element = null;
+    this._film = film;
+  }
+
+  getTemplate() {
+    return getDetailsPopupHtml(this._film);
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}

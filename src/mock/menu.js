@@ -2,7 +2,7 @@
  * Returns menu data
  * @return {[{anchor: string, text: string}, {anchor: string, count: string, text: string}, {anchor: string, count: string, text: string}, {anchor: string, count: string, text: string}]}
  */
-export const getMenuData = () => (
+const getMenuData = () => (
   [
     {
       anchor: `all`,
@@ -25,3 +25,15 @@ export const getMenuData = () => (
     }
   ]
 );
+
+class MenuItem {
+  constructor(menuItem) {
+    this.anchor = menuItem.anchor;
+    this.text = menuItem.text;
+    if (menuItem.count) {
+      this.count = menuItem.count;
+    }
+  }
+}
+
+export const menuItems = getMenuData().map((menuItem) => new MenuItem(menuItem));

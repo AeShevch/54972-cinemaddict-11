@@ -1,11 +1,12 @@
-import {getMenuData} from '../mock/menu';
+import {createElement} from "../mock/utils";
 
 /**
  * Returns menu items html
+ * @param {Object[]} menu Menu data
  * @return {string}
  */
-const getMenuItemsHtml = () => (
-  getMenuData().map((item) => {
+const getMenuItemsHtml = (menu) => (
+  menu.map((item) => {
     const itemCountHtml = item.count ? `<span class="main-navigation__item-count">${item.count}</span>` : ``;
     return `<a href="#${item.anchor}" class="main-navigation__item">${item.text}${itemCountHtml}</a>`;
   }).join(`\n`)
@@ -13,13 +14,37 @@ const getMenuItemsHtml = () => (
 
 /**
  * Returns menu html
+ * @param {Object[]} menu Menu data
  * @return {string}
  */
-export const getMenuHtml = () => (
+const getMenuHtml = (menu) => (
   `<nav class="main-navigation">
     <div class="main-navigation__items">
-      ${getMenuItemsHtml()}
+      ${getMenuItemsHtml(menu)}
     </div>
     <a href="#stats" class="main-navigation__additional">Stats</a>
   </nav>`
 );
+
+export default class MenuComponent {
+  constructor(menu) {
+    this._menu = menu;
+    this._element = null;
+  }
+
+  getTemplate() {
+    return getMenuHtml(this._menu);
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}

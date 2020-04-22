@@ -1,5 +1,6 @@
+import {createElement, truncate} from "../mock/utils";
+
 const DESCRIPTION_MAX_SIZE = 140;
-const truncate = (str, maxSize) => str.length > maxSize ? `${str.slice(0, maxSize - 1)}...` : str;
 
 const getCommentCountString = (count) => {
   switch (count) {
@@ -17,7 +18,7 @@ const getCommentCountString = (count) => {
  * @param {object} film Object with film data
  * @return {string}
  */
-export const getFilmCardHtml = (film) => (
+const getFilmCardHtml = (film) => (
   `<article class="film-card">
      <h3 class="film-card__title">${film.name}</h3>
      <p class="film-card__rating">${film.rating}</p>
@@ -36,3 +37,26 @@ export const getFilmCardHtml = (film) => (
      </form>
    </article>`
 );
+
+export default class FilmComponent {
+  constructor(film) {
+    this._element = null;
+    this._film = film;
+  }
+
+  getTemplate() {
+    return getFilmCardHtml(this._film);
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}

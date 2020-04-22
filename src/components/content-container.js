@@ -1,3 +1,5 @@
+import {createElement} from "../mock/utils";
+
 /**
  * Returns container html
  * @return {string}
@@ -18,3 +20,25 @@ export const getContentContainerHtml = () => (
     </section>
   </section>`
 );
+
+export default class ContainerComponent {
+  constructor() {
+    this._element = null;
+  }
+
+  getTemplate() {
+    return getContentContainerHtml();
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}
