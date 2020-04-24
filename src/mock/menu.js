@@ -26,14 +26,4 @@ const getMenuData = () => (
   ]
 );
 
-class MenuItem {
-  constructor(menuItem) {
-    this.anchor = menuItem.anchor;
-    this.text = menuItem.text;
-    if (menuItem.count) {
-      this.count = menuItem.count;
-    }
-  }
-}
-
-export const menuItems = getMenuData().map((menuItem) => new MenuItem(menuItem));
+export const menuItems = getMenuData();

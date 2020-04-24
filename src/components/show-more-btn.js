@@ -1,4 +1,4 @@
-import {createElement} from "../mock/utils";
+import {createElement} from "../utils";
 
 /**
  * Returns show more button html
@@ -8,7 +8,7 @@ const getButtonShowMoreHtml = () => (
   `<button class="films-list__show-more">Show more</button>`
 );
 
-export default class ButtonShowMoreComponent {
+export default class ButtonShowMore {
   constructor() {
     this._element = null;
   }

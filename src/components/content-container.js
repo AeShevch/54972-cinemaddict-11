@@ -1,10 +1,10 @@
-import {createElement} from "../mock/utils";
+import {createElement} from "../utils";
 
 /**
  * Returns container html
  * @return {string}
  */
-export const getContentContainerHtml = () => (
+const getContentContainerHtml = () => (
   `<section class="films">
     <section class="films-list">
       <h2 class="films-list__title visually-hidden">All movies. Upcoming</h2>
@@ -21,7 +21,7 @@ export const getContentContainerHtml = () => (
   </section>`
 );
 
-export default class ContainerComponent {
+export default class ContentContainer {
   constructor() {
     this._element = null;
   }

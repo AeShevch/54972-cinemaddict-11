@@ -1,4 +1,4 @@
-import {createElement, addZeroToNumber} from "../mock/utils";
+import {createElement, addZeroToNumber} from "../utils";
 
 /**
  * Returns comments html
@@ -155,7 +155,7 @@ const getDetailsPopupHtml = (film) => (
   </section>`
 );
 
-export default class PopUpComponent {
+export default class DetailsPopup {
   constructor(film) {
     this._element = null;
     this._film = film;

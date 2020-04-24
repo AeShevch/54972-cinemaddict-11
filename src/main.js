@@ -8,7 +8,7 @@ import PopUpComponent from "./components/details-popup";
 import {films} from "./mock/film";
 import {user} from "./mock/user";
 import {menuItems} from "./mock/menu";
-import {render} from "./mock/utils";
+import {render} from "./utils";
 
 const FILM_CARDS_COUNT = 5;
 // Film cards in extra blocks count - «Top rated» and «Most commented»

@@ -1,4 +1,4 @@
-import {createElement, truncate} from "../mock/utils";
+import {createElement, truncate} from "../utils";
 
 const DESCRIPTION_MAX_SIZE = 140;
 
@@ -38,7 +38,7 @@ const getFilmCardHtml = (film) => (
    </article>`
 );
 
-export default class FilmComponent {
+export default class FilmCard {
   constructor(film) {
     this._element = null;
     this._film = film;

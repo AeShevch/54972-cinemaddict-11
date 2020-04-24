@@ -1,4 +1,4 @@
-import {createElement} from "../mock/utils";
+import {createElement} from "../utils";
 
 /**
  * Returns sort html
@@ -12,7 +12,7 @@ const getSortHtml = () => (
   </ul>`
 );
 
-export default class SortComponent {
+export default class Sort {
   constructor() {
     this._element = null;
   }

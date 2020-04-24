@@ -1,4 +1,4 @@
-import {createElement} from "../mock/utils";
+import {createElement} from "../utils";
 
 /**
  * Returns user profile html
@@ -12,7 +12,7 @@ const getUserProfileHtml = (user) => (
   </section>`
 );
 
-export default class UserProfileComponent {
+export default class UserProfile {
   constructor(user) {
     this._user = user;
     this._element = null;

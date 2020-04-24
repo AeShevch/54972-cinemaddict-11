@@ -1,4 +1,4 @@
-import {createElement} from "../mock/utils";
+import {createElement} from "../utils";
 
 /**
  * Returns menu items html
@@ -26,7 +26,7 @@ const getMenuHtml = (menu) => (
   </nav>`
 );
 
-export default class MenuComponent {
+export default class Menu {
   constructor(menu) {
     this._menu = menu;
     this._element = null;
