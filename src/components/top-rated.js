@@ -1,20 +1,19 @@
 import {createElement} from "../utils";
 
-/**
- * Returns container html
- * @return {string}
- */
-const getContentContainerHtml = () => (
-  `<section class="films"></section>`
+const getTopRatedHtml = () => (
+  `<section class="films-list--extra">
+    <h2 class="films-list__title">Top rated</h2>
+    <div class="films-list__container films-list__container_top-rated"></div>
+  </section>`
 );
 
-export default class ContentContainer {
+export default class TopRated {
   constructor() {
     this._element = null;
   }
 
   getTemplate() {
-    return getContentContainerHtml();
+    return getTopRatedHtml();
   }
 
   getElement() {

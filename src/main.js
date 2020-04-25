@@ -2,6 +2,10 @@ import UserProfileComponent from "./components/user-profile";
 import MenuComponent from "./components/menu";
 import SortComponent from "./components/sort";
 import ContainerComponent from "./components/content-container";
+import FilmsContainerComponent from "./components/films-container";
+import TopRatedComponent from "./components/top-rated";
+import MostCommentedComponent from "./components/most-commented";
+import NoDataComponent from "./components/no-data";
 import FilmComponent from "./components/film-card";
 import ButtonShowMoreComponent from "./components/show-more-btn";
 import PopUpComponent from "./components/details-popup";
@@ -21,7 +25,7 @@ const sortByRating = (a, b) => b.rating - a.rating;
 
 /**
  * Sorts an array of objects by the specified function and renders the markup to the specified container
- * @param {array} array Array of objects
+ * @param {Object[]} array Array of objects
  * @param {function} sortFunc Function to sort
  * @param {HTMLElement} containerToRender Node to append html to
  */
@@ -41,14 +45,24 @@ const renderFilm = (container, film) => {
   const openPopup = () => {
     const closePopup = () => {
       popupCloseButtonElement.removeEventListener(`click`, closePopup);
+      document.removeEventListener(`keyup`, onEscapePress);
+
       popUpComponent.getElement().remove();
-      popUpComponent.removeChild();
+      popUpComponent.removeElement();
     };
+
+    const onEscapePress = (evt) => {
+      if (evt.key === `Escape`) {
+        closePopup();
+      }
+    };
+
     const popUpComponent = new PopUpComponent(film);
     document.body.appendChild(popUpComponent.getElement());
     const popupCloseButtonElement = popUpComponent.getElement().querySelector(`.film-details__close-btn`);
 
     popupCloseButtonElement.addEventListener(`click`, closePopup);
+    document.addEventListener(`keyup`, onEscapePress);
   };
 
   cardPosterElement.addEventListener(`click`, openPopup);
@@ -64,7 +78,19 @@ const renderContainer = () => {
   render(mainContainerElement, new ContainerComponent().getElement());
 
   const filmsContainer = mainContainerElement.querySelector(`.films`);
+
+  if (!films.length) {
+    render(filmsContainer, new NoDataComponent().getElement());
+    return;
+  }
+
+  render(filmsContainer, new FilmsContainerComponent().getElement());
+
   const filmsListContainer = filmsContainer.querySelector(`.films-list`);
+
+  render(filmsContainer, new TopRatedComponent().getElement());
+  render(filmsContainer, new MostCommentedComponent().getElement());
+
   const filmsListInnerContainer = filmsContainer.querySelector(`.films-list__container`);
   const topRatedFilmsContainer = filmsContainer.querySelector(`.films-list__container_top-rated`);
   const mostCommentedFilmsContainer = filmsContainer.querySelector(`.films-list__container_most-commented`);

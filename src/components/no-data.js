@@ -1,20 +1,16 @@
 import {createElement} from "../utils";
 
-/**
- * Returns container html
- * @return {string}
- */
-const getContentContainerHtml = () => (
-  `<section class="films"></section>`
+const getNoDataHtml = () => (
+  `<section class="films-list"><h2 class="films-list__title">There are no movies in our database</h2></section>`
 );
 
-export default class ContentContainer {
+export default class NoData {
   constructor() {
     this._element = null;
   }
 
   getTemplate() {
-    return getContentContainerHtml();
+    return getNoDataHtml();
   }
 
   getElement() {
