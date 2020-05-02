@@ -1,4 +1,5 @@
-import {createElement, addZeroToNumber} from "../utils";
+import AbstractComponent from "./abstract-component";
+import {addZeroToNumber} from "../utils/common";
 
 /**
  * Returns comments html
@@ -155,25 +156,13 @@ const getDetailsPopupHtml = (film) => (
   </section>`
 );
 
-export default class DetailsPopup {
+export default class DetailsPopup extends AbstractComponent {
   constructor(film) {
-    this._element = null;
+    super();
     this._film = film;
   }
 
   getTemplate() {
     return getDetailsPopupHtml(this._film);
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 }

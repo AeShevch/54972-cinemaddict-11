@@ -1,4 +1,5 @@
-import {createElement, truncate} from "../utils";
+import AbstractComponent from "./abstract-component";
+import {truncate} from "../utils/common";
 
 const DESCRIPTION_MAX_SIZE = 140;
 
@@ -38,25 +39,13 @@ const getFilmCardHtml = (film) => (
    </article>`
 );
 
-export default class FilmCard {
+export default class FilmCard extends AbstractComponent {
   constructor(film) {
-    this._element = null;
+    super();
     this._film = film;
   }
 
   getTemplate() {
     return getFilmCardHtml(this._film);
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 }
